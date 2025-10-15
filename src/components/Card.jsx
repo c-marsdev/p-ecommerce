@@ -1,12 +1,21 @@
-import { Button } from "./Button";
+import { Navigate } from "react-router-dom";
 
-const Card = ({ titulo, descripcion, textoBoton }) => {
+const Card = ({ producto }) => {
+  const { id, title, price, image } = producto;
+  console.log(title);
   return (
-    <div className="border-2 m-2">
-      <img src="" alt="Imagendel producto" srcset="" />
-      <h2>{titulo}</h2>
-      <p>{descripcion}</p>
-      <Button tipo="button" texto={textoBoton} />
+    <div
+      key={id}
+      className="border-2 rounded-xl m-2 flex flex-wrap justify-center"
+    >
+      <img src={image} alt="Imagen del producto" width="55%" />
+      <h2>{title}</h2>
+      <p> $ {price}</p>
+      <button type="button">Comprar</button>
+      <button type="button">
+        {/* <Navigate to={`/productos/${id}`}></Navigate> */}
+        {/* <Link to={`/productos/${id}`}>Ver más</Link> */}
+      </button>
     </div>
   );
 };
