@@ -6,6 +6,14 @@ const Productos = () => {
   const [productos, setProductos] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
+  const [carrito, setCarrito] = useState([]);
+
+  const agregarCarrito = (producto) => {
+    setCarrito([...carrito, producto]);
+  };
+  const eliminarDelCarrito = (indiceEliminar) => {
+    setCarrito(carrito.filter((_, indice) => indice !== indiceEliminar));
+  };
 
   const URL = "https://fakestoreapi.com/products";
 
@@ -26,14 +34,21 @@ const Productos = () => {
   }, []);
 
   if (cargando) return "Cargando productos...";
-  if (error) return error;
+  if (error) return <p>{error}</p>;
 
   return (
     <>
       {productos.map((producto) => (
-        <Card key={producto.id} producto={producto} />
+        <Card
+          key={producto.id}
+          producto={producto}
+          agregarProducto={agregarCarrito}
+        />
       ))}
-      <Carrito />
+      <Carrito
+        productosEnCarrito={carrito}
+        productosEliminados={eliminarDelCarrito}
+      />
     </>
   );
 };
